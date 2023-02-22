@@ -8,6 +8,7 @@ public class DiscordRouter: FederatedServiceRouter {
     public let tokens: FederatedServiceTokens
     public let callbackCompletion: (Request, String) throws -> (EventLoopFuture<ResponseEncodable>)
     public var scope: [String] = []
+    public var state: String?
     public let callbackURL: String
     public let accessTokenURL: String = "\(DiscordRouter.baseURL.finished(with: "/"))api/oauth2/token"
     public let service: OAuthService = .discord

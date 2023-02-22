@@ -5,6 +5,7 @@ public class GoogleRouter: FederatedServiceRouter {
     public let tokens: FederatedServiceTokens
     public let callbackCompletion: (Request, String) throws -> (EventLoopFuture<ResponseEncodable>)
     public var scope: [String] = []
+    public var state: String?
     public let callbackURL: String
     public let accessTokenURL: String = "https://www.googleapis.com/oauth2/v4/token"
     public let service: OAuthService = .google
@@ -25,12 +26,16 @@ public class GoogleRouter: FederatedServiceRouter {
         components.scheme = "https"
         components.host = "accounts.google.com"
         components.path = "/o/oauth2/auth"
-        components.queryItems = [
+        var queryItems: [URLQueryItem] = [
             clientIDItem,
             redirectURIItem,
             scopeItem,
             codeResponseTypeItem
         ]
+        if let state = stateItem {
+            queryItems.append(state)
+        }
+        components.queryItems = queryItems
         
         guard let url = components.url else {
             throw Abort(.internalServerError)

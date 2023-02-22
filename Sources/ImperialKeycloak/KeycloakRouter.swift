@@ -6,6 +6,7 @@ public class KeycloakRouter: FederatedServiceRouter {
     public let keycloakTokens: KeycloakAuth
     public let callbackCompletion: (Request, String) throws -> (EventLoopFuture<ResponseEncodable>)
     public var scope: [String] = []
+    public var state: String?
     public let callbackURL: String
     public let accessTokenURL: String
     public let service: OAuthService = .keycloak

@@ -40,7 +40,17 @@ public protocol FederatedService {
     ///   - authenticateCallback: Execute custom code within the authenticate closure before redirection.
     ///   - callback: The path (or URI) for the route that the provider will call when the user authenticates.
     ///   - scope: The scopes to send to the provider to request access to.
+    ///   - state: Specifies any string value that your application uses to maintain state between your authorization request and the authorization server's response.
+    ///   The server returns the exact value that you send as a name=value pair in the URL query component of the `redirect_uri` after the user consents to or denies your application's access request.
     ///   - completion: The completion handler that will fire at the end of the callback route. The access token is passed into the callback and the response that is returned will be returned from the callback route. This will usually be a redirect back to the app.
     /// - Throws: Any errors that occur in the implementation.
-    init(routes: RoutesBuilder, authenticate: String, authenticateCallback: ((Request) throws -> (EventLoopFuture<Void>))?, callback: String, scope: [String], completion: @escaping (Request, String) throws -> (EventLoopFuture<ResponseEncodable>)) throws
+    init(
+        routes: RoutesBuilder,
+        authenticate: String,
+        authenticateCallback: ((Request) throws -> (EventLoopFuture<Void>))?,
+        callback: String,
+        scope: [String],
+        state: String?,
+        completion: @escaping (Request, String) throws -> (EventLoopFuture<ResponseEncodable>)
+    ) throws
 }

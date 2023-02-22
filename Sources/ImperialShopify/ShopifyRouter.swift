@@ -5,6 +5,7 @@ public class ShopifyRouter: FederatedServiceRouter {
     public let tokens: FederatedServiceTokens
     public let callbackCompletion: (Request, String) throws -> (EventLoopFuture<ResponseEncodable>)
     public var scope: [String] = []
+    public var state: String?
     public let callbackURL: String
     public var accessTokenURL: String = ""
     public let service: OAuthService = .shopify

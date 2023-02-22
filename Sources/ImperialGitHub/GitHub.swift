@@ -12,12 +12,14 @@ public class GitHub: FederatedService {
         authenticateCallback: ((Request) throws -> (EventLoopFuture<Void>))?,
         callback: String,
         scope: [String] = [],
+        state: String?,
         completion: @escaping (Request, String) throws -> (EventLoopFuture<ResponseEncodable>)
     ) throws {
         self.router = try GitHubRouter(callback: callback, completion: completion)
         self.tokens = self.router.tokens
 
         self.router.scope = scope
+        self.router.state = state
         try self.router.configureRoutes(withAuthURL: authenticate, authenticateCallback: authenticateCallback, on: routes)
 
         OAuthService.register(.github)

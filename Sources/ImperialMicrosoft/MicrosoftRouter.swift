@@ -8,6 +8,7 @@ public class MicrosoftRouter: FederatedServiceRouter {
     public let tokens: FederatedServiceTokens
     public let callbackCompletion: (Request, String)throws -> (EventLoopFuture<ResponseEncodable>)
     public var scope: [String] = []
+    public var state: String?
     public let callbackURL: String
     public var tenantID: String { Environment.get(MicrosoftRouter.tenantIDEnvKey) ?? "common" }
     public var accessTokenURL: String { "https://login.microsoftonline.com/\(self.tenantID)/oauth2/v2.0/token" }

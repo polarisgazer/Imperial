@@ -6,6 +6,7 @@ public class FacebookRouter: FederatedServiceRouter {
     public let tokens: FederatedServiceTokens
     public let callbackCompletion: (Request, String) throws -> (EventLoopFuture<ResponseEncodable>)
     public var scope: [String] = []
+    public var state: String?
     public let callbackURL: String
     public var accessTokenURL: String = "https://graph.facebook.com/v3.2/oauth/access_token"
     public let service: OAuthService = .facebook

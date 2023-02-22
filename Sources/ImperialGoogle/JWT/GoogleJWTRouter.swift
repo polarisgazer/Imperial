@@ -8,6 +8,7 @@ public final class GoogleJWTRouter: FederatedServiceRouter {
     public var tokens: FederatedServiceTokens
     public var callbackCompletion: (Request, String) throws -> (EventLoopFuture<ResponseEncodable>)
     public var scope: [String] = []
+    public var state: String?
     public var callbackURL: String
     public var accessTokenURL: String = "https://www.googleapis.com/oauth2/v4/token"
     public var authURL: String

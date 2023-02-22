@@ -15,7 +15,11 @@ public protocol FederatedServiceRouter {
     /// The scopes to get permission for when getting the access token.
     /// Usage of this property varies by provider.
     var scope: [String] { get set }
-    
+
+    /// Specifies any string value that your application uses to maintain state between your authorization request and the authorization server's response.
+    /// The server returns the exact value that you send as a name=value pair in the URL query component of the `redirect_uri` after the user consents to or denies your application's access request.
+    var state: String? { get set }
+
     /// The key to acess the code URL query parameter
     var codeKey: String { get }
     
@@ -140,6 +144,11 @@ extension FederatedServiceRouter {
     
     public var scopeItem: URLQueryItem {
         .init(name: "scope", value: scope.joined(separator: " "))
+    }
+
+    public var stateItem: URLQueryItem? {
+        guard let state = state else { return nil }
+        return URLQueryItem(name: "state", value: state)
     }
     
     public var codeResponseTypeItem: URLQueryItem {
